@@ -1,0 +1,43 @@
+#level {
+    text-align: center;
+    color: lightcoral;
+    font-size: 25px;
+}
+
+#board {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 425px;
+    margin:auto;
+    list-style: none;
+}
+
+#board li{
+    filter: opacity(0.2);
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    max-width: 50px;
+    max-height: 50px;
+    padding: 12px;
+    border: 1px solid;
+    border-radius: 50px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    -ms-border-radius: 50px;
+    -o-border-radius: 50px;
+    -webkit-filter: opacity(0.2);
+}
+
+
+#board li:hover {
+    cursor: pointer;
+    background-color: teal;
+}
+
+#board,
+#level {
+    display: none;
+
+}
