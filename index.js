@@ -1,4 +1,4 @@
-let speed = 200;
+let speed = 2000;
 let level = 1;
 let colors = ["red", "yellow", "green", "blue"];
 let plays = [];
@@ -37,26 +37,27 @@ async function nextPlay() {
     e.onclick = null;
   });
 
-  await bucle();
-  await console.log("bucle");
-
-  Array.from(document.getElementsByTagName("li")).forEach((e) => {
-    console.log("fu");
-    e.onclick = `play('${e.id}')`;
-  });
+    await bucle(),
+    await setTimeout(async () => {
+        Array.from(document.getElementsByTagName("li")).forEach(async (e) => {
+            console.log("fu fin");
+            e.onclick = `play('${e.id}')`;
+        });
+    }, speed);
 }
-async function bucle() {
-  await plays.map(async (color) => {
-    await setTimeout(async () => {
-      await console.log("opacity(1)");
-      document.getElementById(`${color}`).style.filter = "opacity(1)";
-    }, speed);
-    await setTimeout(async () => {
-      await console.log("opacity(0.2)");
 
+async function bucle() {
+  plays.forEach((color, i) => {
+    await ( async (i) => {setTimeout((i) => {
+      console.log("opacity(1)" + i + (speed));
+      document.getElementById(`${color}`).style.filter = "opacity(1)";
+    }, speed  * ( i + 1))})(i);
+    await ( async (i) => {setTimeout((i) => {
+      console.log("opacity(0.2)" + i + (speed));
       document.getElementById(`${color}`).style.filter = "opacity(0.2)";
-    }, speed);
+    }, speed * ( i + 1))})(i)
   });
+  
 }
 
 const waitFor = () => {
