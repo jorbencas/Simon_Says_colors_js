@@ -14,7 +14,6 @@
 }
 
 #board li{
-    filter: opacity(0.2);
     color: white;
     text-align: center;
     text-decoration: none;
@@ -27,13 +26,6 @@
     -moz-border-radius: 50px;
     -ms-border-radius: 50px;
     -o-border-radius: 50px;
-    -webkit-filter: opacity(0.2);
-}
-
-
-#board li:hover {
-    cursor: pointer;
-    background-color: teal;
 }
 
 #board,
