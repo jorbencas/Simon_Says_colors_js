@@ -1,7 +1,13 @@
+/* body {
+    background-color: antiquewhite;
+} */
+
 #level {
     text-align: center;
     color: lightcoral;
     font-size: 25px;
+    max-width: 625px;
+    margin: auto;
 }
 
 #board {
@@ -11,6 +17,8 @@
     max-width: 425px;
     margin:auto;
     list-style: none;
+        max-width: 625px;
+
 }
 
 #board li{
@@ -21,15 +29,59 @@
     max-height: 50px;
     padding: 12px;
     border: 1px solid;
-    border-radius: 50px;
-    -webkit-border-radius: 50px;
-    -moz-border-radius: 50px;
-    -ms-border-radius: 50px;
-    -o-border-radius: 50px;
 }
 
 #board,
 #level {
     display: none;
+}
 
+.red{
+    background-color: #eb4646;
+ -webkit-box-shadow: 10px 10px 5px 0px rgba(235, 70, 70, 0.597);
+-moz-box-shadow: 10px 10px 5px 0px rgba(235, 70, 70, 0.597);
+box-shadow: 10px 10px 5px 0px rgba(235, 70, 70, 0.597);
+}
+.yellow{background-color: #fad645;
+     -webkit-box-shadow: 10px 10px 5px 0px rgba(251, 215, 70, 0.597);
+-moz-box-shadow: 10px 10px 5px 0px rgba(251, 215, 70, 0.597);
+box-shadow: 10px 10px 5px 0px rgba(251, 215, 70, 0.597);
+
+}
+.green{background-color: #008046;
+     -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 128, 70, 0.597);
+-moz-box-shadow: 10px 10px 5px 0px rgba(0, 128, 70, 0.597);
+box-shadow: 10px 10px 5px 0px rgba(0, 128, 70, 0.597);
+
+}
+.blue{background-color: #000046;
+     -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 70, 0.597);
+-moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 70, 0.597);
+box-shadow: 10px 10px 5px 0px rgba(0, 0, 70, 0.597);
+
+}
+.teal{background-color: #0fc2c5;
+     -webkit-box-shadow: 10px 10px 5px 0px rgba(15, 194, 197, 0.597);
+-moz-box-shadow: 10px 10px 5px 0px rgba(15, 194, 197, 0.597);
+box-shadow: 10px 10px 5px 0px rgba(15, 194, 197, 0.597);
+
+}
+.Salmon{background-color: #FA8072;
+     -webkit-box-shadow: 10px 10px 5px 0px rgba(250, 128, 114, 0.597);
+-moz-box-shadow: 10px 10px 5px 0px rgba(250, 128, 114, 0.597);
+box-shadow: 10px 10px 5px 0px rgba(250, 128, 114, 0.597);
+
+}
+
+
+.red,
+ .yellow,
+  .green, 
+  .blue, 
+  .teal, 
+  .Salmon {
+    color:white!important;
+}
+.unclickable {
+  pointer-events: none;
 }

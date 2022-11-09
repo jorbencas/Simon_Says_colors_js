@@ -1,42 +1,47 @@
 let plays = [];
 let plaeysPlays = [];
 let maxLevel = 100;
-let speed = 1000;
+let speed = 600;
 let level = 1;
-let colorList = {
-  red: "eb4646",
-  yellow: "fbfb46",
-  green: "008046",
-  blue: "000046",
-  teal: "0fc2c5",
-  Salmon: "FA8072",
-};
-let colors = Object.keys(colorList).reverse().slice(2).reverse();
-async function playGame(color) {
+let colors = ["red", "yellow", "green", "blue"];
+function playGame(color) {
   const colorFind = plaeysPlays.shift();
   if (level == maxLevel) {
     resetGame();
+    printColors();
+    nextPlay();
   } else if (colorFind.trim() === color.trim()) {
     plaeysPlays.unshift();
-    if(plaeysPlays.length == 0){
+    if (plaeysPlays.length == 0) {
       level++;
-      document.getElementById("level").innerText = `Nivel ${level}`;
-      nextPlay();
+      setTimeout(() => {
+        document.getElementById(
+          "level"
+        ).innerText = `Nivel ${level} de ${maxLevel}`;
+        nextPlay();
+      }, 1000);
     }
-  } else if(plaeysPlays.length > 0) {
+  } else if (plaeysPlays.length > 0) {
     document.getElementById("level").innerText = `Error `;
     resetGame();
-    await waitFor(1000);
-    document.getElementById("level").innerText = `Nivel ${level}`;
-    nextPlay();
+    setTimeout(() => {
+      document.getElementById(
+        "level"
+      ).innerText = `Nivel ${level} de ${maxLevel}`;
+      nextPlay();
+    }, 1000);
   } else {
     level++;
-    document.getElementById("level").innerText = `Nivel ${level}`;
-    nextPlay();
-  } 
+    setTimeout(() => {
+      document.getElementById(
+        "level"
+      ).innerText = `Nivel ${level} de ${maxLevel}`;
+      nextPlay();
+    }, 1000);
+  }
 }
 
-function resetGame(){
+function resetGame() {
   plaeysPlays = [];
   level = 1;
   plays = [];
@@ -50,7 +55,7 @@ function start(event) {
   nextPlay();
 }
 
-async function nextPlay() {
+function nextPlay() {
   if (level === 15 || level === 20) {
     colors.push("teal");
     colors.push("Salmon");
@@ -58,41 +63,37 @@ async function nextPlay() {
   } else if (level === 10) {
     speed = speed - 200;
   } else if (level > 1) {
-    speed = speed - 100;
+    speed++;
   }
   let color = colors[Math.floor(Math.random() * colors.length)];
   plays.push(color);
   plaeysPlays = [...plays];
-  document.getElementById("board").style.cursor = "disabled";
-  await bucle();
-  document.getElementById("board").style.cursor = "default";
+  document.getElementById("board").classList.add("unclickable");
+  bucle();
+  document.getElementById("board").classList.remove("unclickable");
 }
 
-async function bucle() {
-  plays.forEach(async (color, i) => {
-    await waitFor(speed * ( i + 1));
-    console.log("poner " + color);
-    document.getElementById(`${color}`).style.color = "white";
-    document.getElementById(`${color}`).style.backgroundColor =
-      "#" + colorList[color];
-    await waitFor(speed * ( i + 2));
-    console.log("quitar " + color);
-    document.getElementById(`${color}`).style.color = color;
-    document.getElementById(`${color}`).style.backgroundColor = "transparent";
-  });
-}
+function bucle() {
+  for (let index = 0; index < plays.length; index++) {
+    const color = plays[index];
 
-const waitFor = async (ms) => {
-  return new Promise((resolve) => {
-    setTimeout(resolve, ms);
-  });
-};
+    setTimeout(() => {
+      console.log("poner " + speed);
+      document.getElementById(`${color}`).classList.add(color);
+    }, speed * (index + 1));
+
+    setTimeout(() => {
+      console.log("quitar " + speed);
+      document.getElementById(`${color}`).classList.remove(color);
+    }, speed * (index + 2));
+  }
+}
 
 function printColors() {
   let board = document.getElementById("board");
   board.innerHTML = colors
     .map((color) => {
-      return `<li style='border:2px solid ${color}; color:${color};' id='${color}' onclick='playGame("${color}")'>${color}</li>`;
+      return `<li style='border-color: ${color}; color:${color};' id='${color}' onclick='playGame("${color}")'>${color}</li>`;
     })
     .join("");
 }
