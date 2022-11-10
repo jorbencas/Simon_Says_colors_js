@@ -1,53 +1,50 @@
-let plays = [];
-let plaeysPlays = [];
-let maxLevel = 100;
+const MAX_LEVEL = 100;
 let speed = 600;
-let level = 1;
 let colors = ["red", "yellow", "green", "blue"];
-function playGame(color) {
-  const colorFind = plaeysPlays.shift();
-  if (level == maxLevel) {
+let plays = [];
+let playersPlays = [];
+let level = 1;
+
+async function playGame(color) {
+  const COLOR_FIND = playersPlays.shift();
+  if (!COLOR_FIND || COLOR_FIND !== color) {
+    document.getElementById("board").classList.add("unclickable");
+    document.getElementById("level").innerText = `Error`;
+    let list = document.getElementsByTagName("li");
+    Array.from(list).forEach((e) => {
+      e.classList.add("error");
+    });
     resetGame();
-    printColors();
+    await waitFor(1000);
+    Array.from(list).forEach((e) => {
+      e.classList.remove("error");
+    });
+    document.getElementById(
+      "level"
+    ).innerText = `Nivel ${level} de ${MAX_LEVEL}`;
     nextPlay();
-  } else if (colorFind.trim() === color.trim()) {
-    plaeysPlays.unshift();
-    if (plaeysPlays.length == 0) {
-      level++;
-      setTimeout(() => {
-        document.getElementById(
-          "level"
-        ).innerText = `Nivel ${level} de ${maxLevel}`;
-        nextPlay();
-      }, 1000);
+    document.getElementById("board").classList.remove("unclickable");
+  } else if (COLOR_FIND === color) {
+    playersPlays.unshift();
+    if (playersPlays.length == 0) {
+      handleLevels("add");
+      nextPlay();
     }
-  } else if (plaeysPlays.length > 0) {
-    document.getElementById("level").innerText = `Error `;
-    resetGame();
-    setTimeout(() => {
-      document.getElementById(
-        "level"
-      ).innerText = `Nivel ${level} de ${maxLevel}`;
-      nextPlay();
-    }, 1000);
   } else {
-    level++;
-    setTimeout(() => {
-      document.getElementById(
-        "level"
-      ).innerText = `Nivel ${level} de ${maxLevel}`;
-      nextPlay();
-    }, 1000);
+    handleLevels("add");
+    nextPlay();
   }
 }
 
 function resetGame() {
-  plaeysPlays = [];
+  playersPlays = [];
   level = 1;
   plays = [];
+  speed = 600;
+  colors = ["red", "yellow", "green", "blue"];
 }
 
-function start(event) {
+async function start(event) {
   event.target.style.display = "none";
   document.getElementById("board").style.display = "flex";
   document.getElementById("level").style.display = "block";
@@ -55,39 +52,57 @@ function start(event) {
   nextPlay();
 }
 
-function nextPlay() {
-  if (level === 15 || level === 20) {
-    colors.push("teal");
-    colors.push("Salmon");
+async function nextPlay() {
+  if (level == MAX_LEVEL) {
+    resetGame();
     printColors();
-  } else if (level === 10) {
-    speed = speed - 200;
-  } else if (level > 1) {
-    speed++;
   }
+  await waitFor(1000);
+  await handleLevels();
   let color = colors[Math.floor(Math.random() * colors.length)];
   plays.push(color);
-  plaeysPlays = [...plays];
+  playersPlays = [...plays];
   document.getElementById("board").classList.add("unclickable");
-  bucle();
+  document.getElementById("level").innerText = `Reproduciendo secuencia ...`;
+  await playMoves();
   document.getElementById("board").classList.remove("unclickable");
+  document.getElementById("level").innerText = `Nivel ${level} de ${MAX_LEVEL}`;
 }
 
-function bucle() {
-  for (let index = 0; index < plays.length; index++) {
-    const color = plays[index];
-
-    setTimeout(() => {
-      console.log("poner " + speed);
-      document.getElementById(`${color}`).classList.add(color);
-    }, speed * (index + 1));
-
-    setTimeout(() => {
-      console.log("quitar " + speed);
-      document.getElementById(`${color}`).classList.remove(color);
-    }, speed * (index + 2));
+async function handleLevels(action = "") {
+  if (action == "add") {
+    level++;
+    document.getElementById(
+      "level"
+    ).innerText = `Nivel ${level} de ${MAX_LEVEL}`;
+  } else {
+    if (level === 15 || level === 20) {
+      colors.push("teal");
+      colors.push("Salmon");
+      printColors();
+    } else if (level === 10) {
+      speed = speed - 200;
+    } else if (level > 1) {
+      speed--;
+    }
   }
 }
+
+async function playMoves() {
+  for (let index = 0; index < plays.length; index++) {
+    let color = plays[index];
+    await waitFor(speed * (index + 1));
+    document.getElementById(`${color}`).classList.add(color);
+    await waitFor(speed * (index + 2));
+    document.getElementById(`${color}`).classList.remove(color);
+  }
+}
+
+const waitFor = (ms) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+};
 
 function printColors() {
   let board = document.getElementById("board");

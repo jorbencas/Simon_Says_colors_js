@@ -1,6 +1,28 @@
-/* body {
-    background-color: antiquewhite;
-} */
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+}
+
+body {
+    user-select: none;
+}
+
+h1{
+    text-align: center;
+     color: lightcoral;
+}
+
+button{
+    text-align: center;
+    background-color: lightcoral;
+    color: white;
+    padding: 5px;
+    border: 0;
+}
 
 #level {
     text-align: center;
@@ -17,8 +39,6 @@
     max-width: 425px;
     margin:auto;
     list-style: none;
-        max-width: 625px;
-
 }
 
 #board li{
@@ -34,6 +54,13 @@
 #board,
 #level {
     display: none;
+}
+
+.error{
+    color: white!important;
+    border:none!important;
+    background-color: orangered;
+    box-shadow: none;
 }
 
 .red{
@@ -70,7 +97,6 @@ box-shadow: 10px 10px 5px 0px rgba(15, 194, 197, 0.597);
      -webkit-box-shadow: 10px 10px 5px 0px rgba(250, 128, 114, 0.597);
 -moz-box-shadow: 10px 10px 5px 0px rgba(250, 128, 114, 0.597);
 box-shadow: 10px 10px 5px 0px rgba(250, 128, 114, 0.597);
-
 }
 
 
