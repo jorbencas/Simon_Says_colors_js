@@ -22,8 +22,8 @@ async function playGame(color) {
     document.getElementById(
       "level"
     ).innerText = `Nivel ${level} de ${MAX_LEVEL}`;
-    nextPlay();
     document.getElementById("board").classList.remove("unclickable");
+    nextPlay();
   } else if (COLOR_FIND === color) {
     playersPlays.unshift();
     if (playersPlays.length == 0) {
