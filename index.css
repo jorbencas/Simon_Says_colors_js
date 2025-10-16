@@ -9,6 +9,7 @@
 
 body {
     user-select: none;
+    background-color:rgb(208, 208, 216);
 }
 
 h1{
@@ -36,7 +37,7 @@ button{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 425px;
+    max-width: 825px;
     margin:auto;
     list-style: none;
 }
@@ -45,8 +46,8 @@ button{
     color: white;
     text-align: center;
     text-decoration: none;
-    max-width: 50px;
-    max-height: 50px;
+    max-width: 450px;
+    max-height: 450px;
     padding: 12px;
     border: 1px solid;
 }
